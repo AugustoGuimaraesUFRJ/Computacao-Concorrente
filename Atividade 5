@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 #define NTHREADS  2 //Total de threads a serem criadas
-#define tam 100
+#define tam 10000
 int matriz[tam];
 
 void preencher(){
