@@ -6,16 +6,14 @@
 #include <stdlib.h> 
 #include <pthread.h>
 
-#define NTHREADS  2 //total de threads a serem criadas
-#define tam 10000
+#define NTHREADS  2 //Total de threads a serem criadas
+#define tam 100
 int matriz[tam];
 
 void preencher(){
-	printf("Matriz\n");
 	for(int i = 0; i<tam; i++){
 		matriz[i]=1; // Para facilitar preenchi a matriz apenas com valor 1
-		printf("Matriz[%d] -> %d\n",i,matriz[i]);}
-	printf("\n");
+	}
 }
 //Cria a estrutura de dados para armazenar os argumentos da thread
 typedef struct {
@@ -50,9 +48,14 @@ int main() {
   if (pthread_create(&tid_sistema[1], NULL, somar, (void*) arg)) {
       printf("--ERRO: pthread_create()\n"); exit(-1);}
   pthread_join(tid_sistema[1], NULL);// Espera a segunda thread terminar
-
-  printf("Matriz final\n");
+  
+  int resultado=0;
 	for(int j =0;j<tam;j++){
-		printf("Matriz[%d] -> %d\n",j,matriz[j]);}
-	return 0;
+		if(matriz[j]!=2){
+			resultado+=1;}}
+  if(resultado==0)
+	printf("Tudo certo!");
+  else
+	printf("Algo deu errado!");
+  return 0;
 }
