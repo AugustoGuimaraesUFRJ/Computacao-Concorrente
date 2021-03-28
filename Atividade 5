@@ -47,7 +47,7 @@ int main() {
 
   arg->comeco= tam/2; 
   arg->fim = tam; 
-  if (pthread_create(&tid_sistema[0], NULL, somar, (void*) arg)) {
+  if (pthread_create(&tid_sistema[1], NULL, somar, (void*) arg)) {
       printf("--ERRO: pthread_create()\n"); exit(-1);}
   pthread_join(tid_sistema[1], NULL);// Espera a segunda thread terminar
 
