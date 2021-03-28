@@ -1,0 +1,58 @@
+/* Disciplina: Computacao Concorrente */
+/* Prof.: Silvana Rossetto */
+/* Módulo 1 - Laboratório: 1 */
+
+#include <stdio.h>
+#include <stdlib.h> 
+#include <pthread.h>
+
+#define NTHREADS  2 //total de threads a serem criadas
+#define tam 10000
+int matriz[tam];
+
+void preencher(){
+	printf("Matriz\n");
+	for(int i = 0; i<tam; i++){
+		matriz[i]=1; // Para facilitar preenchi a matriz apenas com valor 1
+		printf("Matriz[%d] -> %d\n",i,matriz[i]);}
+	printf("\n");
+}
+//Cria a estrutura de dados para armazenar os argumentos da thread
+typedef struct {
+   int comeco, fim;
+} t_Args;
+
+//Funcao executada pelas threads
+void *somar (void *arg) {
+  t_Args *args = (t_Args *) arg;
+  for(args->comeco; args->comeco<args->fim; args->comeco++){
+		matriz[args->comeco]+=1;}
+  pthread_exit(NULL);
+}
+
+//Funcao principal do programa
+int main() {
+  preencher();
+
+  pthread_t tid_sistema[NTHREADS]; 
+
+  t_Args *arg; //Receberá os argumentos para a thread
+
+  arg->comeco = 0; 
+  arg->fim = tam/2; 
+  if (pthread_create(&tid_sistema[0], NULL, somar, (void*) arg)) {
+      printf("--ERRO: pthread_create()\n"); exit(-1);}
+
+  pthread_join(tid_sistema[0], NULL);// Espera a primeira thread terminar
+
+  arg->comeco= tam/2; 
+  arg->fim = tam; 
+  if (pthread_create(&tid_sistema[0], NULL, somar, (void*) arg)) {
+      printf("--ERRO: pthread_create()\n"); exit(-1);}
+  pthread_join(tid_sistema[1], NULL);// Espera a segunda thread terminar
+
+  printf("Matriz final\n");
+	for(int j =0;j<tam;j++){
+		printf("Matriz[%d] -> %d\n",j,matriz[j]);}
+	return 0;
+}
