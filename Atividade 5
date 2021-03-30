@@ -36,18 +36,17 @@ int main() {
 
   t_Args *arg; //Receberá os argumentos para a thread
 
-  arg->comeco = 0; 
-  arg->fim = tam/2; 
-  if (pthread_create(&tid_sistema[0], NULL, somar, (void*) arg)) {
-      printf("--ERRO: pthread_create()\n"); exit(-1);}
+  for(int i =0; i<NTHREADS;i++){
+		(arg+i)->comeco=0+(tam/2)*i;
+		(arg+i)->fim=(tam/2)+(tam/2)*i;
+  		if (pthread_create(&tid_sistema[NTHREADS], NULL, somar, (void*)(arg+i))) {
+      			printf("--ERRO: pthread_create()\n"); exit(-1);}}
 
-  pthread_join(tid_sistema[0], NULL);// Espera a primeira thread terminar
+ //espera pelo termino das threads
+ for(int i=0;i<NTHREADS;i++){
+	pthread_join(tid_sistema[NTHREADS],NULL);}
 
-  arg->comeco= tam/2; 
-  arg->fim = tam; 
-  if (pthread_create(&tid_sistema[1], NULL, somar, (void*) arg)) {
-      printf("--ERRO: pthread_create()\n"); exit(-1);}
-  pthread_join(tid_sistema[1], NULL);// Espera a segunda thread terminar
+
   
   int resultado=0;
 	for(int j =0;j<tam;j++){
