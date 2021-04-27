@@ -39,7 +39,7 @@ int main(int argc, char*argv[]){
 		return 1;}
 
 	dim = atoi(argv[1]);
-  xp = atoi(argv[2]);
+        xp = atoi(argv[2]);
 	nthreads = atoi(argv[3]);
 	
 	if(nthreads>dim) nthreads=dim;
@@ -78,7 +78,7 @@ int main(int argc, char*argv[]){
    				p = p * (xp - x[j])/(x[i] - x[j]);
    		// printf("%lf ", p); // verificando se os coef de lagrange estão corretos
       	yp = yp + p * y[i];}
-    //puts("");     	   	   	
+        //puts("");     	   	   	
   	printf("[SEQUENCIAL] Valor interpolado com %.3f é %.3f \n", xp, yp); // verifficando os ponto de interpolação
    	GET_TIME(fim);
    	delta2 = fim - inicio;
