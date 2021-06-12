@@ -1,6 +1,5 @@
-/* Disciplina: Computacao Concorrente */
-/* Prof.: Silvana Rossetto */
-/* Módulo 1 - Laboratório: 1 */
+//Ajeitar o for
+90/100
 
 #include <stdio.h>
 #include <stdlib.h> 
